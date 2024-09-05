@@ -1,0 +1,22 @@
+body
+{
+	background: #242424;
+	margin: 0;
+	color: #fff;
+}
+#main
+{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+#top-bar
+{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 30px;
+	margin-bottom: 0;
+}

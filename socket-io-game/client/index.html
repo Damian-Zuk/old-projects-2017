@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Nie wiem</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Viga" rel="stylesheet">
+</head>
+<body>
+	<div id="mainDiv" style="">
+		<canvas width="1500" height="900" id="game"></canvas>
+		<div id="chatContainer">
+			<div id="chatSelectContainer">
+
+				<div id="chatSelect"><div id="global" class="cs active" onclick="activeCs('global')">GLOBAL</div></div>
+				<div class="exitButton" style="float: right; margin-right: 5px; margin-top: 5px;" onclick="toggleChat(false)"></div>
+
+			</div>
+			<div style="clear: both"></div>
+			<div id="chat" class="msgs">
+
+			</div>
+			<form id="chatMsgForm">
+				<input id="chatMsg" type="text" maxlength="60"></input>
+			</form>
+		</div>
+		<div id="pressToChat" onclick="toggleChat(true)">Press [ENTER] to open chat.</div>
+		<div id="lastMsgsContainer">
+			<div id="lastMsgs">
+
+			</div>
+		</div>
+	</div>
+	<br> </br>
+	<strong>Server debug console: </strong>
+	<form id="debugForm"><input type="text" style="width: 500px;" id="command"></input></form>
+	<input type="button" onclick="sendDebug()" value="send" id="sd"></input>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/socket.io.js"></script>
+<script	type="text/javascript">
+var socket = io();
+var debugForm = document.getElementById('debugForm');
+
+function m2dArray(col, row){
+	var a = new Array(col);
+	for (var i = 0; i < a.length; i++){
+		a[i] = new Array(row);
+	}
+	return a;
+}
+sendDebug = function(){
+	socket.emit('debugCommand', $("#command").val());
+	$("#command").val("");
+}
+debugForm.onsubmit = function(e){
+  e.preventDefault();
+	sendDebug();
+};
+socket.on("debugResponse", function(data){
+	console.log(data);
+});
+
+</script>
+<script type="text/javascript" src="js/canvas.js"></script>
+<script type="text/javascript" src="js/chat.js"></script>
+<script type="text/javascript" src="js/input.js"></script>
+<script type="text/javascript" src="js/game.js"></script>
+</body>
+</html>
